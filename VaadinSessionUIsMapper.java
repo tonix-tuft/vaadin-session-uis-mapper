@@ -20,8 +20,7 @@ import com.vaadin.ui.UI;
 public class VaadinSessionUIsMapper {
 
     /**
-     * @var Map<String, Collection<UI>> The map that maps Vaadin session ids to the
-     *      corresponding UIs
+     * @var Map<String, Collection<UI>> The map that maps Vaadin session ids to the corresponding UIs
      */
     private Map<String, Collection<UI>> sessionUIMap;
 
@@ -55,8 +54,8 @@ public class VaadinSessionUIsMapper {
     }
 
     /**
-     * Associate a given Vaadin session to the given UI. If the same UI already
-     * existed inside the map, the old UI is replaced with the new.
+     * Associate a given Vaadin session to the given UI.
+     * If the same UI already existed inside the map, the old UI is replaced with the new.
      * 
      * @param sessId {@link String} The session id
      * @param ui     {@link UI} the ui to associate
@@ -104,8 +103,8 @@ public class VaadinSessionUIsMapper {
 
     /**
      * Associates the given Vaadin session (the session id) to the given UI
-     * collection. If the mapping contained a previous collection for the given
-     * Vaadin key, the old collection is replaced.
+     * collection.
+     * If the mapping contained a previous collection for the given Vaadin key, the old collection is replaced.
      * 
      * @param sessId {@link String} The session id
      * @param uis    {@link Collection}<UI> The collection of UI to associate to the
@@ -116,8 +115,7 @@ public class VaadinSessionUIsMapper {
     }
 
     /**
-     * Gets a collection of Vaadin UIs belonging to the given Vaadin session (the
-     * session id)
+     * Gets a collection of Vaadin UIs belonging to the given Vaadin session (the session id)
      * 
      * @param sessId {@link String} The session id
      * @return Collection<UI> The UI collection
@@ -141,8 +139,7 @@ public class VaadinSessionUIsMapper {
      * Removes the given UI from the given session id mapping
      * 
      * @param sessId {@link String} The session id
-     * @param ui     {@link VaadinAbstractMappableUI} The UI to remove from the
-     *               mapping
+     * @param ui {@link VaadinAbstractMappableUI} The UI to remove from the mapping
      */
     public void removeUI(String sessId, VaadinAbstractMappableUI ui) {
         this.sessionUIMap.get(sessId).remove(ui);
