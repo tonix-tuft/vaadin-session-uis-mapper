@@ -24,86 +24,69 @@ import com.vaadin.ui.VerticalLayout;
 @Push // setting this UI as pushable
 public class ApplicationLifecycleUI extends VaadinAbstractMappableUI {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@WebServlet(value = {"/AppLife/*", "/VAADIN/*"}, asyncSupported = true)
-	@VaadinServletConfiguration(productionMode = false, ui = ApplicationLifecycleUI.class)
-	public static class Servlet extends VaadinServlet 
-								implements SessionInitListener, SessionDestroyListener, 
-										   BootstrapListener {
-		
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
+    @WebServlet(value = { "/AppLife/*", "/VAADIN/*" }, asyncSupported = true)
+    @VaadinServletConfiguration(productionMode = false, ui = ApplicationLifecycleUI.class)
+    public static class Servlet extends VaadinServlet
+            implements SessionInitListener, SessionDestroyListener, BootstrapListener {
 
+        private static final long serialVersionUID = 1L;
 
-		// Handling Session Initialization and Destruction
-		@Override 
-		protected void servletInitialized() throws ServletException {
-			super.servletInitialized();
-	        getService().addSessionInitListener(this);
-	        getService().addSessionDestroyListener(this);
-		}
-		
-		
-	    @Override
-	    public void sessionInit(SessionInitEvent event)
-	            throws ServiceException {
-	        // Do session start stuff here
-	    	
-	    	// Adding the bootstrap listener to the Session
-	    	VaadinSession.getCurrent().addBootstrapListener(this);
-	    }
+        // Handling Session Initialization and Destruction
+        @Override
+        protected void servletInitialized() throws ServletException {
+            super.servletInitialized();
+            getService().addSessionInitListener(this);
+            getService().addSessionDestroyListener(this);
+        }
 
-	    @Override
-	    public void sessionDestroy(SessionDestroyEvent event) {
-	        // Do session end stuff here
-	    }
+        @Override
+        public void sessionInit(SessionInitEvent event) throws ServiceException {
+            // Do session start stuff here
 
+            // Adding the bootstrap listener to the Session
+            VaadinSession.getCurrent().addBootstrapListener(this);
+        }
 
-	    // Customizing the Loader Page
-		@Override
-		public void modifyBootstrapFragment(BootstrapFragmentResponse response) {
-			
-		}
+        @Override
+        public void sessionDestroy(SessionDestroyEvent event) {
+            // Do session end stuff here
+        }
 
+        // Customizing the Loader Page
+        @Override
+        public void modifyBootstrapFragment(BootstrapFragmentResponse response) {
+        }
 
-		@Override
-		public void modifyBootstrapPage(BootstrapPageResponse response) {
-			
-		}
+        @Override
+        public void modifyBootstrapPage(BootstrapPageResponse response) {
+        }
+    }
 
-	}
+    @SuppressWarnings("serial")
+    @Override
+    protected void init(VaadinRequest request) {
 
-	@SuppressWarnings("serial")
-	@Override
-	protected void init(VaadinRequest request) {
-		
-		final VerticalLayout layout = new VerticalLayout();
-		layout.setMargin(true);
-		setContent(layout);
+        final VerticalLayout layout = new VerticalLayout();
+        layout.setMargin(true);
+        setContent(layout);
 
-		
-		Button button = new Button("Click Me");
-		button.addClickListener(new Button.ClickListener() {
-			public void buttonClick(ClickEvent event) {
-				layout.addComponent(new Label("Thank you for clicking"));
-			}
-		});
-		layout.addComponent(button);
-		
-		Button logoutButton = new Button("Logout");
-		logoutButton.addClickListener(e -> {
-			getPage().setLocation("/Application_Lifecycle_Chapter_4.7/VAADIN/logout.html");
-			getSession().close();
-		});
-		// Setting a faster heartbeat
-		//setPollInterval(3000);
-		layout.addComponent(logoutButton);
-	}
+        Button button = new Button("Click Me");
+        button.addClickListener(new Button.ClickListener() {
+            public void buttonClick(ClickEvent event) {
+                layout.addComponent(new Label("Thank you for clicking"));
+            }
+        });
+        layout.addComponent(button);
 
+        Button logoutButton = new Button("Logout");
+        logoutButton.addClickListener(e -> {
+            getPage().setLocation("/Application_Lifecycle_Chapter_4.7/VAADIN/logout.html");
+            getSession().close();
+        });
+        // Setting a faster heartbeat
+        // setPollInterval(3000);
+        layout.addComponent(logoutButton);
+    }
 }
